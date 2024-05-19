@@ -1,4 +1,4 @@
-package com.example.talkio
+package com.myothukha.talkio
 
 import io.flutter.embedding.android.FlutterActivity
 
