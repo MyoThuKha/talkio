@@ -5,6 +5,7 @@ import 'package:talkio/pages/chats/chat_page.dart';
 import 'package:talkio/pages/home_page/home_page.dart';
 import 'package:talkio/pages/profile/profile_page.dart';
 import 'package:talkio/pages/register/register_page.dart';
+import 'package:talkio/pages/settings/settings_page.dart';
 import 'package:talkio/pages/splash/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -28,7 +29,6 @@ class MyApp extends StatelessWidget {
             background: Color(0xffc5c5c5),
             primary: Color(0xff0f0f0f),
             surface: Color(0xffffffff),
-            
           ),
         // colorScheme: const ColorScheme.light(
         //   background: Color(0xffc5c5c5),
@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
         ProfilePage.route:(context) => const ProfilePage(),
         RegisterPage.route:(context) => const RegisterPage(),
         ChatPage.route:(context) => const ChatPage(),
+        SettingsPage.route:(context) => const SettingsPage(),
       },
     );
   }

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_text/circular_text.dart';
+import 'package:talkio/models/chat_model.dart';
+import 'package:talkio/styles/input_style.dart';
+import 'package:talkio/widgets/auto_sized_box.dart';
+import 'package:talkio/widgets/custom_appbar.dart';
 
 class ChatPage extends StatefulWidget {
   static const route = "/chat";
@@ -9,73 +13,181 @@ class ChatPage extends StatefulWidget {
   State<ChatPage> createState() => _ChatPageState();
 }
 
+List<ChatModel> datas = [
+  ChatModel(message: "Hey", sender: "mg", reactions: [], state: [], date: ''),
+  ChatModel(message: "Hey what up", sender: "me", reactions: [], state: [], date: ''),
+  ChatModel(message: "Let go watch a movies.", sender: "mg", reactions: [], state: [], date: ''),
+  ChatModel(message: "Sound fun when", sender: "me", reactions: [], state: [], date: ''),
+  ChatModel(message: "How bout 10 pm? sound good?",sender: "mg", reactions: [], state: [], date: ''),
+  ChatModel(message: "Ok I will meet you there", sender: "me", reactions: [], state: [], date: ''),
+].reversed.toList();
+
 class _ChatPageState extends State<ChatPage> {
+final _inputController = TextEditingController();
+final _chatController = ScrollController();
+
+@override
+  void initState() {
+    super.initState();
+  }
+
+
+@override
+  void dispose() {
+    _inputController.dispose();
+    super.dispose();
+  }
+
+
+  void scrollToTheEnd() {
+    //need to go to the top cause of reverse
+    final end = _chatController.position.minScrollExtent;
+    _chatController.animateTo(
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+      end,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  CircularText(children: [
-                    TextItem(
-                      text: const Text(
-                        "MYO THU KHA",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        ),
-                      ),
-                      direction: CircularTextDirection.clockwise,
-                      startAngle: 270,
-                      startAngleAlignment: StartAngleAlignment.center,
-                    )
-                  ]),
-                  Container(
-                    margin: const EdgeInsets.only(top: 30),
-                    padding: const EdgeInsets.all(4),
-                    width: 180,
-                    height: 240,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(color: Colors.black, width: 1),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image.network(
-                        "https://impulse.aarafacademy.com/uploads/samples/g1.jpg",
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ],
+    return  GestureDetector(
+      onTap: (){
+        FocusManager.instance.primaryFocus!.unfocus();
+      },
+      child: Scaffold(
+        appBar: customAppBar(context: context, title: "Chat",actions: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.black,
+                width: 2,
               ),
-
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) => Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      margin: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        color: Colors.amber,
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        "Hello world",
+            ),
+            child: const CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(
+                "https://impulse.aarafacademy.com/uploads/samples/g1.jpg",
+              ),
+            ),
+          ),
+      
+        ]),
+        body: SafeArea(
+          child: Center(
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    controller: _chatController,
+                    reverse: true,
+                    itemCount: datas.length,
+                    itemBuilder: (context, index) => Align(
+                      alignment: 
+                      datas[index].sender == "me"?
+                       Alignment.centerRight: Alignment.centerLeft,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const AutoSizedBox(width: 20),
+                          Container(
+                            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width/2),
+                            margin: const EdgeInsets.all(4),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 15),
+                            decoration: BoxDecoration(
+                              color: datas[index].sender == "me"
+                                  ? Colors.amber
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: Text(
+                              datas[index].message,
+                            ),
+                          ),
+      
+                          //seen status
+                          (datas[index].sender == "me" && (datas.length == index+1))
+                              ? const SeenWidget()
+                              : const AutoSizedBox(width: 20),
+                        ],
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      child: const Icon(
+                        Icons.attach_file,
+                      ),
+                    ),
+                    const AutoSizedBox(width: 12),
+                    Expanded(
+                      child: TextField(
+                        controller: _inputController,
+                          decoration: sendInputStyle(
+                            context,
+                            suffix: InkWell(
+                              onTap: (){
+                                if (_inputController.text.isEmpty){
+                                  return;
+                                }
+                                setState(() {
+                                  datas = [
+                                  ChatModel(message: _inputController.text, sender: "me", reactions: [], state: [], date: '')
+,...datas, 
+                                  ];
+                                });
+                                scrollToTheEnd();
+                              },
+                              child: Ink(
+                                padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 15),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: const Text("Send",
+                                    style: TextStyle(color: Colors.white)),
+                              ),
+                            ),
+                          ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+              ],
+            ),
           ),
         ),
+      
+      ),
+    );
+  }
+
+}
+
+
+
+class SeenWidget extends StatelessWidget {
+  const SeenWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.only(right: 8.0),
+      child: CircleAvatar(
+        backgroundColor: Colors.black,
+        radius: 8,
       ),
     );
   }

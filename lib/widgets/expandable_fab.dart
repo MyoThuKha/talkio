@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:talkio/pages/settings/settings_page.dart';
 
 class ExpandableFab extends StatefulWidget {
   const ExpandableFab({super.key});
@@ -32,23 +33,26 @@ class _ExpandableFabState extends State<ExpandableFab> {
             ? SizedBox(
                 child: Row(
                   children: [
-                    Expanded(
-                      child: FabItem(
-                        onClick: () {
-                          setState(() => fabOpen = false);
-                        },
-                        backgroundColor: Colors.white,
-                        child: const Icon(Icons.settings),
-                      ),
+                    FabItem(
+                      onClick: () {
+                        Navigator.pushNamed(context, SettingsPage.route);
+                      },
+                      backgroundColor: Colors.white,
+                      child: const Icon(Icons.search),
                     ),
-                    Expanded(
-                      child: FabItem(
-                        onClick: () {
-                          setState(() => fabOpen = false);
-                        },
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        child: const Icon(Icons.arrow_forward_rounded, color: Colors.white),
-                      ),
+                    FabItem(
+                      onClick: () {
+                        Navigator.pushNamed(context, SettingsPage.route);
+                      },
+                      backgroundColor: Colors.white,
+                      child: const Icon(Icons.settings),
+                    ),
+                    FabItem(
+                      onClick: () {
+                        setState(() => fabOpen = false);
+                      },
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      child: const Icon(Icons.arrow_forward_rounded, color: Colors.white),
                     )
                   ],
                 ),
@@ -69,18 +73,20 @@ class FabItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(28),
-      child: Ink(
-        height: double.infinity,
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(28),
-        ),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(28),
-          onTap: onClick,
-          child: child,
+    return Expanded(
+      child: Material(
+        borderRadius: BorderRadius.circular(28),
+        child: Ink(
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(28),
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(28),
+            onTap: onClick,
+            child: child,
+          ),
         ),
       ),
     );
