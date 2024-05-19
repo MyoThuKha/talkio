@@ -108,7 +108,8 @@ class _HomePageState extends State<HomePage> {
                     shrinkWrap: true,
                     itemCount: 50,
                     controller: _chatScrollController,
-                    itemBuilder: (context, index) => ChatTile(
+                    itemBuilder: (context, index) => 
+                    ChatTile(
                       index: index,
                       profile: "https://impulse.aarafacademy.com/uploads/samples/g1.jpg",
                       username: "Lucy",

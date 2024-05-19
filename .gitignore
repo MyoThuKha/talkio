@@ -44,3 +44,4 @@ app.*.map.json
 
 /fonts/
 /ios/Runner/GoogleService-Info.plist
+/ios/Runner/GoogleService-Info.plist

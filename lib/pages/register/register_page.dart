@@ -194,6 +194,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   if (!_formKey.currentState!.validate()) {
                     return;
                   }
+                  if (password != confirmPassword){
+                    return;
+                  }
+                  final result =  AuthService();
+                  result.register(email, password);
                 },
                 label: 'Register',
               ),

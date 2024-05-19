@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:talkio/pages/chats/chat_page.dart';
 import 'package:talkio/pages/home_page/home_page.dart';
 import 'package:talkio/pages/profile/profile_page.dart';
 import 'package:talkio/pages/register/register_page.dart';
 import 'package:talkio/pages/splash/splash_page.dart';
-import 'package:talkio/styles/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,6 +27,8 @@ class MyApp extends StatelessWidget {
           colorScheme: const ColorScheme.light(
             background: Color(0xffc5c5c5),
             primary: Color(0xff0f0f0f),
+            surface: Color(0xffffffff),
+            
           ),
         // colorScheme: const ColorScheme.light(
         //   background: Color(0xffc5c5c5),
@@ -42,6 +45,11 @@ class MyApp extends StatelessWidget {
             letterSpacing: 5,
             fontWeight: FontWeight.w200,
             fontFamily: "Bigger",
+          ),
+          displayMedium: TextStyle(
+            fontSize: 60,
+            fontWeight: FontWeight.w200,
+            fontFamily: "Bigger",
           )
         )
       ),
@@ -51,6 +59,7 @@ class MyApp extends StatelessWidget {
         HomePage.route:(context) => const HomePage(),
         ProfilePage.route:(context) => const ProfilePage(),
         RegisterPage.route:(context) => const RegisterPage(),
+        ChatPage.route:(context) => const ChatPage(),
       },
     );
   }

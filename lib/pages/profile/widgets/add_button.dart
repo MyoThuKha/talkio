@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:talkio/animation/animated_button.dart';
 
 class AddButton extends StatefulWidget {
@@ -11,6 +14,9 @@ class AddButton extends StatefulWidget {
 
 class _AddButtonState extends State<AddButton> {
   bool buttonPressed = false;
+
+
+  Uint8List? image;
 
   final onClickDuration = const Duration(milliseconds: 200);
   final onClickAnimation = const Duration(milliseconds: 500);
@@ -26,12 +32,12 @@ class _AddButtonState extends State<AddButton> {
         ),
       ),
       child: AnimatedButton(
-        onTap: (){},
+        onTap: pickImage,
         child: Container(
           width: MediaQuery.of(context).size.width / 5,
           height: MediaQuery.of(context).size.width / 5,
           decoration: BoxDecoration(
-              color: Colors.grey[300], borderRadius: BorderRadius.circular(25)),
+              color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(25)),
           child: const Icon(Icons.add),
         )
             .animate(
@@ -45,5 +51,15 @@ class _AddButtonState extends State<AddButton> {
             ),
       ),
     );
+  }
+
+  void pickImage()async{
+    final picker = ImagePicker();
+
+    final result = await picker.pickImage(source: ImageSource.gallery);
+
+    if (result != null) {
+      image = await result.readAsBytes();
+    }
   }
 }
