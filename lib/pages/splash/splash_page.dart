@@ -25,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FlutterLogo(),
+            const FlutterLogo(),
             FilledButton(onPressed: (){
     Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => const MainPage(),));
 

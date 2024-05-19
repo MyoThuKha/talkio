@@ -12,7 +12,6 @@ class _ExpandableFabState extends State<ExpandableFab> {
   bool fabOpen = false;
   @override
   Widget build(BuildContext context) {
-    const Placeholder();
     return GestureDetector(
       onTap: () {
         setState(() => fabOpen = true);

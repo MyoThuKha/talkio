@@ -31,10 +31,17 @@ class MyApp extends StatelessWidget {
         //   background: Color(0xffc5c5c5),
         // ),
         fontFamily: GoogleFonts.poppins().fontFamily,
-        textTheme: const TextTheme(
+        textTheme:const TextTheme(
           headlineSmall: TextStyle(
             fontSize: 18,
             height: 3,
+          ),
+          displayLarge: TextStyle(
+            fontSize: 70,
+            height: 3,
+            letterSpacing: 5,
+            fontWeight: FontWeight.w200,
+            fontFamily: "Bigger",
           )
         )
       ),

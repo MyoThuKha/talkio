@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:talkio/pages/home_page/widgets/chat_tile.dart';
 import 'package:talkio/pages/home_page/widgets/message_card.dart';
 import 'package:talkio/pages/profile/profile_page.dart';
 import 'package:talkio/styles/app_theme.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:talkio/widgets/expandable_fab.dart';
 
 class HomePage extends StatefulWidget {
@@ -58,7 +55,9 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         toolbarHeight: 120,
-        title: const Text("Welcome, John"),
+        title: const Text(
+          "Welcome, John",
+        ),
         backgroundColor: Theme.of(context).colorScheme.background,
         surfaceTintColor: Theme.of(context).colorScheme.background,
         actions: [

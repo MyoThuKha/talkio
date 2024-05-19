@@ -1,10 +1,11 @@
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:talkio/animation/animated_button.dart';
 import 'package:talkio/pages/profile/widgets/add_button.dart';
+import 'package:talkio/services/auth_service.dart';
 import 'package:talkio/widgets/glassmorphism_widget.dart';
+import 'package:talkio/widgets/main_btn.dart';
+import 'package:talkio/widgets/vertical_expand_fab.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -137,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: SafeArea(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AnimatedButton(
                 onTap: (){
@@ -148,10 +149,46 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Icon(Icons.arrow_back),
                 ),
               ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: MainBtn(
+                    onTap: (){
+                      final service = AuthService();
+                      service.logout();
+                    },
+                    label: "Logout",
+                  ),
+                ),
+              ),
+              // GestureDetector(
+              //   onTap: () {},
+              //   child: Container(
+              //     height: 180,
+              //     decoration: BoxDecoration(
+              //       color: Colors.white,
+              //       borderRadius: BorderRadius.circular(30)
+              //     ),
+              //     alignment: Alignment.bottomCenter,
+              //     child: CircleAvatar(
+              //       radius: 30,
+              //       child: SvgPicture.asset(
+              //         "assets/icons/menu.svg",
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              VerticalExpandFab(),
             ],
           ),
         ),
-      ),
+      ).animate().slideY(
+            end: 0,
+            begin: 10,
+            duration: const Duration(milliseconds: 1500),
+            curve: Curves.easeOut,
+          ),
     );
   }
 }
