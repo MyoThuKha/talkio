@@ -34,6 +34,7 @@ final _chatController = ScrollController();
 
 @override
   void dispose() {
+    _chatController.dispose();
     _inputController.dispose();
     super.dispose();
   }
@@ -47,6 +48,24 @@ final _chatController = ScrollController();
       curve: Curves.easeInOut,
       end,
     );
+  }
+
+  void onSendMessage() {
+    if (_inputController.text.isEmpty) {
+      return;
+    }
+    setState(() {
+      datas = [
+        ChatModel(
+            message: _inputController.text,
+            sender: "me",
+            reactions: [],
+            state: [],
+            date: ''),
+        ...datas,
+      ];
+    });
+    scrollToTheEnd();
   }
 
   @override
@@ -110,7 +129,7 @@ final _chatController = ScrollController();
                           ),
       
                           //seen status
-                          (datas[index].sender == "me" && (datas.length == index+1))
+                          (datas[index].sender == "me" && (index == 0))
                               ? const SeenWidget()
                               : const AutoSizedBox(width: 20),
                         ],
@@ -137,18 +156,8 @@ final _chatController = ScrollController();
                           decoration: sendInputStyle(
                             context,
                             suffix: InkWell(
-                              onTap: (){
-                                if (_inputController.text.isEmpty){
-                                  return;
-                                }
-                                setState(() {
-                                  datas = [
-                                  ChatModel(message: _inputController.text, sender: "me", reactions: [], state: [], date: '')
-,...datas, 
-                                  ];
-                                });
-                                scrollToTheEnd();
-                              },
+                              onTap:
+                              onSendMessage,
                               child: Ink(
                                 padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 15),
                                 decoration: BoxDecoration(
