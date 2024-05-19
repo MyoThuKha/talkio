@@ -16,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-    Timer(Duration(seconds: 3), startApp);
+    Timer(const Duration(seconds: 3), startApp);
     super.initState();
   }
   

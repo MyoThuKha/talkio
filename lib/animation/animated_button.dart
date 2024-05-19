@@ -19,17 +19,18 @@ class _AnimatedButtonState extends State<AnimatedButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      // onTap: widget.onTap,
         onTapDown: (details) async {
           setState(() {
             buttonPressed = !buttonPressed;
           });
         },
         onTapUp: (details) async{
-          await Future.delayed(const Duration(milliseconds: 500));
+          await Future.delayed(const Duration(milliseconds: 400));
           setState(() {
             buttonPressed = !buttonPressed;
           });
+          widget.onTap();
         },
         child: widget.child
             .animate(
