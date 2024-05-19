@@ -18,7 +18,7 @@ class _ExpandableFabState extends State<ExpandableFab> {
         setState(() => fabOpen = true);
       },
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 100),
+        duration: const Duration(milliseconds: 240),
         curve: Curves.easeOut,
         width: fabOpen ? MediaQuery.of(context).size.width / 1.085 : 80,
         height: 80,
@@ -47,6 +47,7 @@ class _ExpandableFabState extends State<ExpandableFab> {
                         onClick: () {
                           setState(() => fabOpen = false);
                         },
+                        backgroundColor: Theme.of(context).colorScheme.primary,
                         child: const Icon(Icons.arrow_forward_rounded, color: Colors.white),
                       ),
                     )
