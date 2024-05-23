@@ -8,6 +8,8 @@ import 'package:talkio/pages/register/register_page.dart';
 import 'package:talkio/pages/settings/settings_page.dart';
 import 'package:talkio/pages/splash/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:talkio/providers/app_provider.dart';
+import 'package:talkio/styles/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,52 +17,28 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final theme = ref.watch(appProvider);
     return MaterialApp(
       title: 'Talkio',
       // theme: lightTheme,
       // darkTheme: darkTheme,
-      theme: ThemeData(
-          colorScheme: const ColorScheme.light(
-            background: Color(0xffc5c5c5),
-            primary: Color(0xff0f0f0f),
-            surface: Color(0xffffffff),
-          ),
-        // colorScheme: const ColorScheme.light(
-        //   background: Color(0xffc5c5c5),
-        // ),
-        fontFamily: GoogleFonts.poppins().fontFamily,
-        textTheme:const TextTheme(
-          headlineSmall: TextStyle(
-            fontSize: 18,
-            height: 3,
-          ),
-          displayLarge: TextStyle(
-            fontSize: 70,
-            height: 3,
-            letterSpacing: 5,
-            fontWeight: FontWeight.w200,
-            fontFamily: "Bigger",
-          ),
-          displayMedium: TextStyle(
-            fontSize: 60,
-            fontWeight: FontWeight.w200,
-            fontFamily: "Bigger",
-          )
-        )
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: theme.isDarkMode? ThemeMode.dark: ThemeMode.light,
+
       initialRoute: SplashPage.route,
       routes: {
-        SplashPage.route:(context) => const SplashPage(),
-        HomePage.route:(context) => const HomePage(),
-        ProfilePage.route:(context) => const ProfilePage(),
-        RegisterPage.route:(context) => const RegisterPage(),
-        ChatPage.route:(context) => const ChatPage(),
-        SettingsPage.route:(context) => const SettingsPage(),
+        SplashPage.route: (context) => const SplashPage(),
+        HomePage.route: (context) => const HomePage(),
+        ProfilePage.route: (context) => const ProfilePage(),
+        RegisterPage.route: (context) => const RegisterPage(),
+        ChatPage.route: (context) => const ChatPage(),
+        SettingsPage.route: (context) => const SettingsPage(),
       },
     );
   }

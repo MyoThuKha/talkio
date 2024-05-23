@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_text/circular_text.dart';
+import 'package:talkio/animation/route_animation.dart';
 import 'package:talkio/models/chat_model.dart';
+import 'package:talkio/pages/settings/settings_page.dart';
 import 'package:talkio/styles/input_style.dart';
 import 'package:talkio/widgets/auto_sized_box.dart';
 import 'package:talkio/widgets/custom_appbar.dart';
@@ -86,10 +88,15 @@ final _chatController = ScrollController();
                 width: 2,
               ),
             ),
-            child: const CircleAvatar(
-              radius: 30,
-              backgroundImage: NetworkImage(
-                "https://impulse.aarafacademy.com/uploads/samples/g1.jpg",
+            child: GestureDetector(
+              onTap: (){
+                Navigator.push(context, scaleCurveRoute(const SettingsPage()));
+              },
+              child: const CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage(
+                  "https://impulse.aarafacademy.com/uploads/samples/g1.jpg",
+                ),
               ),
             ),
           ),
