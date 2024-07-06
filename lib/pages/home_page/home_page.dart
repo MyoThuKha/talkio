@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:talkio/pages/home_page/widgets/chat_tile.dart';
-import 'package:talkio/pages/home_page/widgets/message_card.dart';
-import 'package:talkio/pages/profile/profile_page.dart';
-import 'package:talkio/styles/app_theme.dart';
-import 'package:talkio/widgets/expandable_fab.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:talkio/pages/profile/profile_page_code.dart';
 
 class HomePage extends StatefulWidget {
-  static const String route = "/home";
+  static const route = "/home";
   const HomePage({super.key});
 
   @override
@@ -15,116 +12,131 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  final ScrollController _chatScrollController = ScrollController();
-  bool fabOpen = false;
-
-  @override
-  void dispose() {
-    _chatScrollController.removeListener(_scrollListener);
-    _chatScrollController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    _chatScrollController.addListener(_scrollListener);
-    super.initState();
-  }
-  void _scrollListener() {
-    if (!_chatScrollController.position.isScrollingNotifier.value) {
-      // Calculate the position of the nearest full item
-      double itemHeight = 120;
-      double offset = _chatScrollController.offset;
-      double itemPosition = offset / itemHeight;
-      int nearestItemIndex = itemPosition.round();
-
-      // Scroll to the nearest full item
-      _chatScrollController.animateTo(
-        nearestItemIndex * itemHeight,
-        duration: const Duration(milliseconds: 500), // Adjust duration as needed
-        curve: Curves.easeInOut,
-      );
-    }
-  }
-
-
+  final String name = "Myo";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xffc5c5c5),
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         toolbarHeight: 120,
-        title: const Text(
-          "Welcome, John",
+        title: Text(
+          "Welcome, $name",
+          style: Theme.of(context).textTheme.titleLarge,
         ),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        surfaceTintColor: Theme.of(context).colorScheme.surface,
+        centerTitle: false,
+        scrolledUnderElevation: 0,
         actions: [
           GestureDetector(
             onTap: (){
               Navigator.pushNamed(context, ProfilePage.route);
             },
-            child: const CircleAvatar(
-              radius: 28,
-              backgroundColor: Colors.amber,
+            child: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              radius: 30,
             ),
-          ),
-          const SizedBox(width: 12),
+          )
         ],
       ),
+
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: screenPadding,
-                  child: Text(
-                    "Unread Messages",
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width / 2.3,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 10,
-                    itemBuilder: (context, index) => const MessageCard(message: "Lorem ipsum", profile: "https://impulse.aarafacademy.com/uploads/samples/g1.jpg"),
-                  ),
-                ),
-                Padding(
-                  padding: screenPadding,
-                  child: Text(
-                    "Chats",
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 50,
-                    controller: _chatScrollController,
-                    itemBuilder: (context, index) => 
-                    ChatTile(
-                      index: index,
-                      profile: "https://impulse.aarafacademy.com/uploads/samples/g1.jpg",
-                      username: "Lucy",
-                      description: "Lorem ipsum",
-                      time: "yestarday",
-                      isNew: index % 2 == 0 ? true : false,
+        children: [
+          // --------------------- Unread Messages Section ----------------------
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SectionTitle(child: "Unread Messages"),
+              Stack(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 2.5,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: const EdgeInsets.all(5),
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              borderRadius: BorderRadius.circular(32),
+                            ),
+                          );
+                        }
                     ),
                   ),
-                )
-              ],
+          
+                  //arrow indicator
+                ],
+              ),
+            ],
+          ),
+      
+          // --------------------- Chat Section ----------------------
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Row(
+                    children: [
+                      SectionTitle(child: "Chat"),
+                    ],
+                  ),
+              
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primary,
+                            borderRadius: BorderRadius.circular(31),
+                          ),
+                          height: MediaQuery.of(context).size.width / 3.5,
+                          margin: const EdgeInsets.symmetric(vertical: 4),
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ],
       ),
-      floatingActionButton: const ExpandableFab(),
+
+      floatingActionButton: GestureDetector(
+        onHorizontalDragStart: (details) {
+          print("Hello world");
+        },
+        child: Container(
+          width: 18,
+          height: MediaQuery.of(context).size.width / 4.5,
+          decoration: BoxDecoration(
+            // color: Colors.red,
+            color: Theme.of(context).colorScheme.secondary,
+            border: Border.all(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class SectionTitle extends StatelessWidget {
+  final String child;
+  const SectionTitle({super.key,required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Text(child, style: Theme.of(context).textTheme.titleMedium),
     );
   }
 }

@@ -26,12 +26,9 @@ class MyApp extends ConsumerWidget {
     final theme = ref.watch(appProvider);
     return MaterialApp(
       title: 'Talkio',
-      // theme: lightTheme,
-      // darkTheme: darkTheme,
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: theme.isDarkMode? ThemeMode.dark: ThemeMode.light,
-
       initialRoute: SplashPage.route,
       // initialRoute: ImagePicker.route,
       routes: {
