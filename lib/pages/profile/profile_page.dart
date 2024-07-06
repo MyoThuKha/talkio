@@ -29,6 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: BackTransition(
         btn: GestureDetector(
           onTap: ()async{

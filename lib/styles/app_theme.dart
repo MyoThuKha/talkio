@@ -46,8 +46,14 @@ const appTextTheme = TextTheme(
     fontSize: 24,
     fontWeight: FontWeight.w500,
   ),
-
-    titleMedium: TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w500,
-    ));
+  titleMedium: TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  ),
+  labelMedium: TextStyle(
+    fontSize: 16,
+  ),
+  labelSmall: TextStyle(
+    fontSize: 13,
+  )
+);
