@@ -16,7 +16,7 @@ class LoginDialog extends StatelessWidget {
         top: MediaQuery.of(context).size.height / 2,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(30),
       ),
       child: Material(

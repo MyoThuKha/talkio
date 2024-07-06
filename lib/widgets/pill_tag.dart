@@ -74,14 +74,14 @@ class PillShapeItem extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.surface,
               ),
             ),
             Align(
               alignment: alignment,
               child: CircleAvatar(
                 radius: 30,
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 // child: Icon(
                 //   Icons.apple,
                 //   color: Theme.of(context).colorScheme.primary,

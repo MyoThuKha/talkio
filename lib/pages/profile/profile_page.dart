@@ -23,18 +23,45 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
 
   int currIndex = 1;
+  bool goBack = false;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackTransition(
-        // btn: Container(
-        //   width: 800000,
-        //   height: 800000,
-        //   // color: Colors.black,
-        //   child: Icon(
-        //     Icons.arrow_back,
-        //   ),
-        // ),
+        btn: GestureDetector(
+          onTap: ()async{
+            setState(() {
+              goBack = true;
+            });
+            await Future.delayed(const Duration(seconds: 3));
+            setState(() {
+              goBack = false;
+            });
+          },
+          child: Container(
+            width:  80,
+            height:  80,
+            decoration: const BoxDecoration(
+              color: Colors.black,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+          ).animate(
+            target: goBack ? 1 : 0,
+          ).scale(
+            duration: const Duration(milliseconds: 400),
+            begin: const Offset(1, 1),
+            end: const Offset(20, 20),
+            // width: goBack ? 80000: 80,
+            // height: goBack ? 80000: 80,
+
+          ),
+        ),
         body: DefaultTabController(
           initialIndex: 1,
           length: 3,

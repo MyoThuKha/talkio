@@ -5,8 +5,8 @@ PreferredSizeWidget customAppBar(
     required String title,
     List<Widget> actions = const []}) {
   return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      surfaceTintColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      surfaceTintColor: Theme.of(context).colorScheme.surface,
       automaticallyImplyLeading: false,
       title: Text(
         title.toUpperCase(),

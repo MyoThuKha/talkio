@@ -14,7 +14,7 @@ class MainBtn extends StatelessWidget {
       onPressed: onTap,
       child: Text(
         label,
-        style: TextStyle(color: Theme.of(context).colorScheme.background),
+        style: TextStyle(color: Theme.of(context).colorScheme.surface),
       ),
     );
   }

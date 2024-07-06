@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:talkio/pages/chats/chat_page.dart';
 import 'package:talkio/pages/home_page/home_page.dart';
+import 'package:talkio/pages/image/image_picker.dart';
 import 'package:talkio/pages/profile/profile_page.dart';
 import 'package:talkio/pages/register/register_page.dart';
 import 'package:talkio/pages/settings/settings_page.dart';
@@ -32,7 +33,9 @@ class MyApp extends ConsumerWidget {
       themeMode: theme.isDarkMode? ThemeMode.dark: ThemeMode.light,
 
       initialRoute: SplashPage.route,
+      // initialRoute: ImagePicker.route,
       routes: {
+        ImagePicker.route: (context) => const ImagePicker(),
         SplashPage.route: (context) => const SplashPage(),
         HomePage.route: (context) => const HomePage(),
         ProfilePage.route: (context) => const ProfilePage(),
