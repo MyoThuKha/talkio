@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                       // Chat Section: Title Bar
                       const Row(
                         children: [
-                          SectionTitle(child: "Chat"),
+                          SectionTitle(child: "Chats"),
                         ],
                       ),
                   

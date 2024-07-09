@@ -8,6 +8,7 @@ import 'package:talkio/animation/animated_transition.dart';
 import 'package:talkio/pages/profile/info_section.dart';
 import 'package:talkio/pages/profile/widgets/add_button.dart';
 import 'package:talkio/services/auth_service.dart';
+import 'package:talkio/styles/clippings/profile_clipping.dart';
 import 'package:talkio/widgets/glassmorphism_widget.dart';
 import 'package:talkio/widgets/main_btn.dart';
 import 'package:talkio/widgets/vertical_expand_fab.dart';
@@ -80,22 +81,34 @@ class _ProfilePageState extends State<ProfilePage> {
                         Stack(
                           alignment: Alignment.topRight,
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primary,
-                                // borderRadius: BorderRadius.circular(40),
-                                image: const DecorationImage(
-                                  image: NetworkImage(
-                                    "https://impulse.aarafacademy.com/uploads/samples/g1.jpg",
-                                  ),
-                                  fit: BoxFit.cover,
+                            // Container(
+                            //   decoration: BoxDecoration(
+                            //     color: Theme.of(context).colorScheme.primary,
+                            //     // borderRadius: BorderRadius.circular(40),
+                            //     image: const DecorationImage(
+                            //       image: NetworkImage(
+                            //         "https://impulse.aarafacademy.com/uploads/samples/g1.jpg",
+                            //       ),
+                            //       fit: BoxFit.cover,
+                            //     ),
+                            //   ),
+                            //   child: Image.asset("assets/profile_frame.png"),
+                            // ),
+
+                            ClipPath(
+                              clipper: ProfileClipper(),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: Image.network(
+                                  "https://images.pexels.com/photos/14755738/pexels-photo-14755738.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    fit: BoxFit.cover,
                                 ),
+                              
                               ),
-                              child: Image.asset("assets/profile_frame.png"),
                             ),
                             const Positioned(
                               top: 0,
-                              right: 12,
+                              // right: 15,
                               child: AddButton(),
                             ),
                           ],

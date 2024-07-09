@@ -20,36 +20,28 @@ class _AddButtonState extends State<AddButton> {
 
   final onClickDuration = const Duration(milliseconds: 200);
   final onClickAnimation = const Duration(milliseconds: 500);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 6, bottom: 6),
-      decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(30),
-          bottomLeft: Radius.circular(30),
+    return AnimatedButton(
+      onTap: pickImage,
+      child: Container(
+        padding: EdgeInsets.all(MediaQuery.sizeOf(context).width * 0.08),
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          borderRadius: BorderRadius.circular(25),
         ),
-      ),
-      child: AnimatedButton(
-        onTap: pickImage,
-        child: Container(
-          width: MediaQuery.of(context).size.width / 5,
-          height: MediaQuery.of(context).size.width / 5,
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(25)),
-          child: const Icon(Icons.add),
-        )
-            .animate(
-              target: buttonPressed ? 1 : 0,
-            )
-            .scale(
-              begin: const Offset(1, 1),
-              end: const Offset(0.4, 0.4),
-              duration: onClickDuration,
-              delay: onClickDuration,
-            ),
-      ),
+        child: const Icon(Icons.add,size: 30),
+      )
+          .animate(
+            target: buttonPressed ? 1 : 0,
+          )
+          .scale(
+            begin: const Offset(1, 1),
+            end: const Offset(0.4, 0.4),
+            duration: onClickDuration,
+            delay: onClickDuration,
+          ),
     );
   }
 
